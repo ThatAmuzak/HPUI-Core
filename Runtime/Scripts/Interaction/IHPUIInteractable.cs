@@ -11,9 +11,11 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         public HPUIGestureEvent GestureEvent { get; }
 
         /// <summary>
-        /// Auxiliary gesture realted event triggered on gesture
+        /// Reports interactable events. This event is fired when an
+        /// interactable is detected to enter hover/select states.
         /// </summary>
-        public HPUIInteractableStateEvent AuxGestureEvent { get; }
+        /// <seealso cref="HPUIInteractableState"/>
+        public HPUIInteractableStateEvent InteractableStateEvent { get; }
 
         /// <summary>
         /// Lower z order will get higher priority.
@@ -53,8 +55,9 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         void OnGesture(HPUIGestureEventArgs args);
 
         /// <summary>
-        /// This is called when an auxiliary gesture event occurs on the interactable.
+        /// This is called when an interactable state event occurs on the interactable.
         /// </summary>
+        /// <seealso cref="HPUIInteractableState"/>
         void OnInteractableStateEvent(HPUIInteractableStateEventArgs args);
     }
 }

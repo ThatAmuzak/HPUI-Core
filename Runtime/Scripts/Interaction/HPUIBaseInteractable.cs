@@ -47,10 +47,10 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         public HPUIGestureEvent GestureEvent { get => gestureEvent; set => gestureEvent = value; }
 
         [SerializeField]
-        private HPUIInteractableStateEvent auxGestureEvent = new HPUIInteractableStateEvent();
+        private HPUIInteractableStateEvent interactableStateEvent = new HPUIInteractableStateEvent();
 
         /// <inheritdoc />
-        public HPUIInteractableStateEvent AuxGestureEvent { get => auxGestureEvent; set => auxGestureEvent = value; }
+        public HPUIInteractableStateEvent InteractableStateEvent { get => interactableStateEvent; set => interactableStateEvent = value; }
 
         #region overrides
         /// <inheritdoc />
@@ -128,7 +128,7 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         /// <inheritdoc />
         public void OnInteractableStateEvent(HPUIInteractableStateEventArgs args)
         {
-            auxGestureEvent?.Invoke(args);
+            interactableStateEvent?.Invoke(args);
         }
 
         /// <inheritdoc />

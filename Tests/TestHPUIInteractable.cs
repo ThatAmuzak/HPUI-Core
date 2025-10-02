@@ -95,7 +95,7 @@ namespace ubco.ovilab.HPUI.Core.Tests
 
         HPUIGestureEvent IHPUIInteractable.GestureEvent => throw new NotImplementedException();
 
-        HPUIInteractableStateEvent IHPUIInteractable.AuxGestureEvent => throw new NotImplementedException();
+        HPUIInteractableStateEvent IHPUIInteractable.InteractableStateEvent => throw new NotImplementedException();
 
         event Action<InteractableRegisteredEventArgs> IXRInteractable.registered
         {

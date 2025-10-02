@@ -121,10 +121,10 @@ namespace ubco.ovilab.HPUI.Core.Tests
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates[i1], interactableEvents[i1].State);
+            Assert.IsEmpty(eventArgs.GestureStates);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(1, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates[i1], interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.TrackingStarted, interactableEvents[i1].State);
 
             yield return new WaitForSeconds(InsideDebounceWindow);
@@ -134,9 +134,9 @@ namespace ubco.ovilab.HPUI.Core.Tests
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
+            Assert.IsEmpty(eventArgs.GestureStates);
             Assert.IsEmpty(interactableEvents);
-            Assert.IsEmpty(eventArgs.InteractableAuxGestureStates);
+            Assert.IsEmpty(eventArgs.InteractableStates);
 
             gestureEvents.Clear();
             interactableEvents.Clear();
@@ -150,10 +150,10 @@ namespace ubco.ovilab.HPUI.Core.Tests
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates[i1], interactableEvents[i1].State);
+            Assert.IsEmpty(eventArgs.GestureStates);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(1, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates[i1], interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.TrackingStarted, interactableEvents[i1].State);
 
             // Exit without start even getting triggered should cancel
@@ -164,9 +164,9 @@ namespace ubco.ovilab.HPUI.Core.Tests
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
+            Assert.IsEmpty(eventArgs.GestureStates);
             Assert.IsEmpty(interactableEvents);
-            Assert.IsEmpty(eventArgs.InteractableAuxGestureStates);
+            Assert.IsEmpty(eventArgs.InteractableStates);
 
             gestureEvents.Clear();
             interactableEvents.Clear();
@@ -180,10 +180,10 @@ namespace ubco.ovilab.HPUI.Core.Tests
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates[i1], interactableEvents[i1].State);
+            Assert.IsEmpty(eventArgs.GestureStates);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(1, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates[i1], interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.TrackingStarted, interactableEvents[i1].State);
 
             yield return new WaitForSeconds(OutsideDebounceWindow);
@@ -191,13 +191,13 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableGestureStates.Count, gestureEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableGestureStates[i1], gestureEvents[i1].State);
+            Assert.AreEqual(eventArgs.GestureStates.Count, gestureEvents.Count);
+            Assert.AreEqual(1, eventArgs.GestureStates.Count);
+            Assert.AreEqual(eventArgs.GestureStates[i1], gestureEvents[i1].State);
             Assert.AreEqual(HPUIGestureState.Started, gestureEvents[i1].State);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates[i1], interactableEvents[i1].State);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(1, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates[i1], interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.TrackingUpdate, interactableEvents[i1].State);
 
             updates.Remove(i1);
@@ -205,9 +205,9 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableGestureStates.Count, gestureEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableGestureStates[i1], gestureEvents[i1].State);
+            Assert.AreEqual(eventArgs.GestureStates.Count, gestureEvents.Count);
+            Assert.AreEqual(1, eventArgs.GestureStates.Count);
+            Assert.AreEqual(eventArgs.GestureStates[i1], gestureEvents[i1].State);
             Assert.AreEqual(HPUIGestureState.Stopped, gestureEvents[i1].State);
 
             gestureEvents.Clear();
@@ -299,10 +299,10 @@ namespace ubco.ovilab.HPUI.Core.Tests
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates[i1], interactableEvents[i1].State);
+            Assert.IsEmpty(eventArgs.GestureStates);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(1, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates[i1], interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.TrackingStarted, interactableEvents[i1].State);
 
             // Smaller heuristic - should be selected as active
@@ -311,8 +311,8 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(2, eventArgs.InteractableAuxGestureStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(2, eventArgs.InteractableStates.Count);
             Assert.AreEqual(HPUIInteractableState.TrackingUpdate, interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.InContact, interactableEvents[i2].State);
 
@@ -323,8 +323,8 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(2, eventArgs.InteractableAuxGestureStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(2, eventArgs.InteractableStates.Count);
             Assert.AreEqual(1, gestureEvents.Count);
             Assert.AreEqual(HPUIInteractableState.TrackingEnded, interactableEvents[i1].State);
             Assert.AreEqual(HPUIInteractableState.TrackingStarted, interactableEvents[i2].State);
@@ -335,8 +335,8 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, 0);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, 0);
             Assert.AreEqual(HPUIGestureState.Stopped, gestureEvents[i2].State);
 
 
@@ -398,17 +398,17 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(2, eventArgs.InteractableAuxGestureStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(2, eventArgs.InteractableStates.Count);
 
             yield return new WaitForSeconds(OutsideCommitWindow);
             gestureEvents.Clear();
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableGestureStates.Count, gestureEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableGestureStates.Count);
-            Assert.AreEqual(HPUIGestureState.Started, eventArgs.InteractableGestureStates[i1]);
+            Assert.AreEqual(eventArgs.GestureStates.Count, gestureEvents.Count);
+            Assert.AreEqual(1, eventArgs.GestureStates.Count);
+            Assert.AreEqual(HPUIGestureState.Started, eventArgs.GestureStates[i1]);
         }
 
         [UnityTest]
@@ -455,8 +455,8 @@ namespace ubco.ovilab.HPUI.Core.Tests
             interactableEvents.Clear();
             eventArgs = logic.ComputeInteraction(interactor, updates, gestureEvents, interactableEvents);
             Assert.IsNotNull(eventArgs);
-            Assert.AreEqual(eventArgs.InteractableAuxGestureStates.Count, interactableEvents.Count);
-            Assert.AreEqual(1, eventArgs.InteractableAuxGestureStates.Count);
+            Assert.AreEqual(eventArgs.InteractableStates.Count, interactableEvents.Count);
+            Assert.AreEqual(1, eventArgs.InteractableStates.Count);
 
             yield return new WaitForSeconds(_outsideCommitInsideDebouceDelay);
             gestureEvents.Clear();
@@ -550,7 +550,7 @@ namespace ubco.ovilab.HPUI.Core.Tests
             Assert.IsNotNull(eventArgs);
             Assert.AreEqual(2, interactableEvents.Count);
             Assert.AreEqual(1, gestureEvents.Count);
-            Assert.AreEqual(HPUIGestureState.Started, eventArgs.InteractableGestureStates[i1]);
+            Assert.AreEqual(HPUIGestureState.Started, eventArgs.GestureStates[i1]);
 
             updates.Clear();
             gestureEvents.Clear();
@@ -559,8 +559,8 @@ namespace ubco.ovilab.HPUI.Core.Tests
             Assert.IsNotNull(eventArgs);
             Assert.IsEmpty(interactableEvents);
             Assert.AreEqual(1, gestureEvents.Count);
-            Assert.AreEqual(gestureEvents.Count, eventArgs.InteractableGestureStates.Count);
-            Assert.AreEqual(HPUIGestureState.Stopped, eventArgs.InteractableGestureStates[i1]);
+            Assert.AreEqual(gestureEvents.Count, eventArgs.GestureStates.Count);
+            Assert.AreEqual(HPUIGestureState.Stopped, eventArgs.GestureStates[i1]);
         }
 
         //There can be instances where the event is not handled by any interactable
@@ -586,9 +586,9 @@ namespace ubco.ovilab.HPUI.Core.Tests
             Assert.IsNotNull(eventArgs);
             Assert.AreEqual(2, interactableEvents.Count);
             Assert.IsEmpty(gestureEvents);
-            Assert.AreEqual(interactableEvents.Count, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(HPUIInteractableState.TrackingStarted, eventArgs.InteractableAuxGestureStates[i2]);
-            Assert.AreEqual(gestureEvents.Count, eventArgs.InteractableGestureStates.Count);
+            Assert.AreEqual(interactableEvents.Count, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(HPUIInteractableState.TrackingStarted, eventArgs.InteractableStates[i2]);
+            Assert.AreEqual(gestureEvents.Count, eventArgs.GestureStates.Count);
 
             yield return new WaitForSeconds(OutsideCommitWindow);
             gestureEvents.Clear();
@@ -598,10 +598,10 @@ namespace ubco.ovilab.HPUI.Core.Tests
             Assert.AreEqual(HPUIGestureState.Started, eventArgs.State);
             Assert.AreEqual(2, interactableEvents.Count);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
-            Assert.AreEqual(interactableEvents.Count, eventArgs.InteractableAuxGestureStates.Count);
-            Assert.AreEqual(HPUIInteractableState.TrackingUpdate, eventArgs.InteractableAuxGestureStates[i2]);
-            Assert.AreEqual(HPUIInteractableState.InContact, eventArgs.InteractableAuxGestureStates[i1]);
+            Assert.IsEmpty(eventArgs.GestureStates);
+            Assert.AreEqual(interactableEvents.Count, eventArgs.InteractableStates.Count);
+            Assert.AreEqual(HPUIInteractableState.TrackingUpdate, eventArgs.InteractableStates[i2]);
+            Assert.AreEqual(HPUIInteractableState.InContact, eventArgs.InteractableStates[i1]);
 
             updates.Clear();
             gestureEvents.Clear();
@@ -610,9 +610,9 @@ namespace ubco.ovilab.HPUI.Core.Tests
             Assert.IsNotNull(eventArgs);
             Assert.AreEqual(HPUIGestureState.Stopped, eventArgs.State);
             Assert.IsEmpty(gestureEvents);
-            Assert.IsEmpty(eventArgs.InteractableGestureStates);
+            Assert.IsEmpty(eventArgs.GestureStates);
             Assert.IsEmpty(interactableEvents);
-            Assert.IsEmpty(eventArgs.InteractableAuxGestureStates);
+            Assert.IsEmpty(eventArgs.InteractableStates);
         }
     }
 }

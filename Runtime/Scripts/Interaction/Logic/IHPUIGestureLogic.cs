@@ -12,12 +12,12 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         /// <param name="interactor">The interactor to use when processing the distances.</param>
         /// <param name="distances">A dictionary containing the distance and heuristic values for interactable currently interacting with.</param>
         /// <param name="interactableEvents">The dictionary that is populated with the interactables and the corresponding events args to be fired.</param>
-        /// <param name="interactableEvents">The dictionary that is populated with the interactables and the corresponding auxiliary events args to be fired.</param>
+        /// <param name="interactableEvents">The dictionary that is populated with the interactables and the corresponding interactable state events args to be fired.</param>
         /// </summary>
         public HPUIInteractorGestureEventArgs ComputeInteraction(IHPUIInteractor interactor,
                                                                  IDictionary<IHPUIInteractable, HPUIInteractionInfo> distances,
                                                                  IDictionary<IHPUIInteractable, HPUIGestureEventArgs> interactableEvents,
-                                                                 IDictionary<IHPUIInteractable, HPUIInteractableStateEventArgs> auxInteractableEvents);
+                                                                 IDictionary<IHPUIInteractable, HPUIInteractableStateEventArgs> interactableStateEvents);
 
         /// <summary>
         /// Resets/initializes the logic.

@@ -57,20 +57,23 @@ namespace ubco.ovilab.HPUI.Core.Interaction
     /// <summary>
     /// Represents per-interactable states related to hovering, contact, and tracking.
     /// These states are reported alongside the main gesture state to inform each interactable of
-    /// its local status (e.g., hovered, in contact, currently being tracked).
+    /// its local status (e.g., hovered, in contact, currently being tracked) in the current frame.
     /// </summary>
+    /// <seealso cref="IHPUIInteractable.InteractableStateEvent"/>
     public enum HPUIInteractableState
     {
         /// <summary>
         /// The interactor is in contact with the interactable (selection/press is active),
         /// but the interactable is not the current tracking target.
-        /// When one of tracker states (TrackingStarted, TrackingEnded, TrackingUpdate) is reported,
+        /// When one of TrackingStarted or TrackingUpdate is reported,
         /// they imply the interactor is in contact with that interactable.
+        /// When TrackingEnded is reported, it may be in either contact or hovered states.
         /// </summary>
         InContact,
 
         /// <summary>
         /// The interactor is merely hovering over the interactable with no selection in progress.
+        /// When TrackingEnded is reported, it may be in either contact or hovered states.
         /// </summary>
         Hovered,
 
@@ -256,12 +259,12 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         /// <summary>
         /// The interactables recieving gesture events.
         /// </summary>
-        public IReadOnlyDictionary<IHPUIInteractable, HPUIGestureState> InteractableGestureStates { get; protected set; }
+        public IReadOnlyDictionary<IHPUIInteractable, HPUIGestureState> GestureStates { get; protected set; }
 
         /// <summary>
-        /// The interactables recieving aux gesture events.
+        /// The interactables recieving interactable state events.
         /// </summary>
-        public IReadOnlyDictionary<IHPUIInteractable, HPUIInteractableState> InteractableAuxGestureStates { get; protected set; }
+        public IReadOnlyDictionary<IHPUIInteractable, HPUIInteractableState> InteractableStates { get; protected set; }
 
         /// <summary>
         /// The state of the interactable.
@@ -269,21 +272,23 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         public HPUIGestureState State { get; private set; }
 
         public HPUIInteractorGestureEventArgs(IHPUIInteractor interactor, HPUIGestureState state,
-                                              IReadOnlyDictionary<IHPUIInteractable, HPUIGestureState> interactableGestureStates,
-                                              IReadOnlyDictionary<IHPUIInteractable, HPUIInteractableState> interactableAuxGestureStates,
+                                              IReadOnlyDictionary<IHPUIInteractable, HPUIGestureState> gestureStates,
+                                              IReadOnlyDictionary<IHPUIInteractable, HPUIInteractableState> interactableStates,
                                               float timeDelta, float startTime,
                                               Vector2 startPosition, Vector2 cumulativeDirection, float cumulativeDistance, Vector2 deltaDirection) :
             base(interactor, timeDelta, startTime, startPosition, cumulativeDirection, cumulativeDistance, deltaDirection)
         {
-            InteractableGestureStates = interactableGestureStates;
-            InteractableAuxGestureStates = interactableAuxGestureStates;
+            GestureStates = gestureStates;
+            InteractableStates = interactableStates;
             State = state;
         }
     }
 
     /// <summary>
-    /// Event data associated with a auxiliary gesture interaction on HPUI
+    /// Event data associated with interactable state events on HPUI
     /// </summary>
+    /// <seealso cref="HPUIInteractableState"/>
+    /// <seealso cref="IHPUIInteractable.InteractableStateEvent"/>
     public class HPUIInteractableStateEventArgs : BaseInteractionEventArgs
     {
         /// <summary>
@@ -311,7 +316,7 @@ namespace ubco.ovilab.HPUI.Core.Interaction
         public virtual Vector2 Position { get; private set; }
 
         /// <summary>
-        /// The auxiliary state of the interactable.
+        /// The state of the interactable.
         /// </summary>
         public HPUIInteractableState State { get; private set; }
 
