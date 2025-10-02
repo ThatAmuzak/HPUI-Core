@@ -339,7 +339,9 @@ namespace ubco.ovilab.HPUI.Core.Interaction
             if (resetTrackingInteractable && updateTrackingInteractable)
             {
                 interactableEventStates[interactableToTrack] = HPUIInteractableState.TrackingStarted;
-                if (currentTrackingInteractable != null)
+
+                // Update the state of the former currentTrackingInteractable only if it was in frame
+                if (currentTrackingInteractable != null && interactableEventStates.ContainsKey(currentTrackingInteractable))
                 {
                     interactableEventStates[currentTrackingInteractable] = HPUIInteractableState.TrackingEnded;
                 }
