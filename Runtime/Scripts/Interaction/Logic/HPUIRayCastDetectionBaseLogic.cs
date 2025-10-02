@@ -15,6 +15,8 @@ namespace ubco.ovilab.HPUI.Core.Interaction
     /// </summary>
     public abstract class HPUIRayCastDetectionBaseLogic : IHPUIDetectionLogic
     {
+        private const float EPSILON = 1e-8f;
+
         [SerializeField]
         [Tooltip("Interaction hover radius.")]
         private float interactionHoverRadius = 0.015f;
@@ -199,33 +201,32 @@ namespace ubco.ovilab.HPUI.Core.Interaction
                                                           Dictionary<IHPUIInteractable, HPUIInteractionInfo> validTargets,
                                                           out Vector3 hoverEndPoint)
         {
-            Vector3 centroid;
-            float xEndPoint = 0, yEndPoint = 0, zEndPoint = 0;
+            Vector3 centroid, endPoint = Vector3.zero;
             float count = validRayCastTargets.Sum(kvp => kvp.Value.Count);
 
             foreach (KeyValuePair<IHPUIInteractable, List<RaycastInteractionInfo>> kvp in validRayCastTargets)
             {
-                float localXEndPoint = 0, localYEndPoint = 0, localZEndPoint = 0;
-                float localOverThresholdCount = 0,
-                    localCount = 0;
+                float localOverThresholdCount = 0;
+                Vector3 weightedSum = Vector3.zero;
+                float totalWeight = 0f;
 
                 foreach (RaycastInteractionInfo i in kvp.Value)
                 {
-                    xEndPoint += i.point.x;
-                    yEndPoint += i.point.y;
-                    zEndPoint += i.point.z;
-                    localXEndPoint += i.point.x;
-                    localYEndPoint += i.point.y;
-                    localZEndPoint += i.point.z;
+                    endPoint += i.point;
 
-                    localCount++;
+                    float w = 1f / Mathf.Max(i.distanceValue, EPSILON); // smaller distance -> larger weight
+                    weightedSum  += i.point * w;
+                    totalWeight += w;
+
                     if (i.isSelection)
                     {
                         localOverThresholdCount++;
                     }
                 }
 
-                centroid = new Vector3(localXEndPoint, localYEndPoint, localZEndPoint) / localCount;
+                // totalWeight can never be zero. An interactable cannot be here if it didn't have some data!
+                Debug.Assert(totalWeight != 0);
+                centroid = weightedSum / totalWeight;
 
                 RaycastInteractionInfo closestToCentroid = kvp.Value.OrderBy(el => (el.point - centroid).magnitude).First();
                 // This distance is needed to compute the selection
@@ -239,7 +240,7 @@ namespace ubco.ovilab.HPUI.Core.Interaction
                 validTargets.Add(kvp.Key, hpuiInteractionInfo);
             }
 
-            hoverEndPoint = new Vector3(xEndPoint, yEndPoint, zEndPoint) / count;
+            hoverEndPoint = endPoint / count;
 
             return count > 0;
         }
